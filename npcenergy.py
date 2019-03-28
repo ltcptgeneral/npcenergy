@@ -20,6 +20,7 @@ def intro(data):
     os.system('cls')
     
     print("All decent RPGs begin with the one important question: who the fuck are you? Its time for you to decide.")
+    name = input("Press Enter to continue")
     os.system('cls')
     
     print("First what's your gender? Notice how PC we are by giving you a chance to create any gender you want.")
@@ -45,7 +46,7 @@ def intro(data):
     #os.system('cls')
     
     print({
-        "1":"As the child of declining, you've never real power has never been in your grasp. However you've always been expected to behave as if you were a ruler.",
+        "1":"As the child of declining nobility, you've never real power has never been in your grasp. However you've always been expected to behave as if you were a ruler.",
         "2":"Coming from merchants and tradesman, you've had the responsibility of continuing the family trading buisness since you were born.",
         "3":"The prodigy of two simple, but honored footsoldiers, you have been trained in martial arts since 6 years of age, preparing for the time you too would be fighting on the front lines.",
         "4":"Your family has lived and died by the forest. Literally, the entire extended family lives in a ragedy thatch hut on the edge of the forest.",
@@ -66,7 +67,7 @@ def intro(data):
         print("1) local lord's page\n2) engineer's apprentice\n3) warlock's assistant\n4) street urchin\n5) nomadic child")
 
         childhood = input("Select from 1 - 5: ")
-        if family in ["1","2","3","4","5"]:
+        if childhood in ["1","2","3","4","5"]:
             break
         else:
             print("You were never properly tought how to count apparently, as you answer was not from 1-5.")
@@ -105,6 +106,16 @@ def intro(data):
         "8":"You decide that a life of software (magic) is right for you."
         }.get(job))
 
+    input("Press Enter to continue")
+
+    os.system('cls')
+
+    print("No doubt that answering those questions has alread exceded the maximum number of interactions allwed per day, with penalty of mental and social shutdown. So from now on there will be no social interactions required. You only need to asnwer [...] when prompted.")
+
+    input("To practice, when you see this: [...], you only need to press Enter")
+
+    os.system('cls')
+
     print("With what little you had on you back and in your pockets, you set out to find meaning in life.")
     input("Press Enter to begin your journey")
 
@@ -112,32 +123,41 @@ def intro(data):
 
 def createcharacter(db, character, gender, name, family, childhood, job):
 
-    character.setgender(gender)
-    character.setname(name)
+    if family == "gods":
 
-    skills = character.getskills()
+        character.setgender(gender)
+        character.setname(name)
 
-    for key in (db.getfamilies().get(family)):
+        character.setskills(db.getmaxskills())
 
-        skills[key] += db.getfamilies().get(family).get(key)
+    else:
 
-    character.setskills(skills)
+        character.setgender(gender)
+        character.setname(name)
 
-    skills = character.getskills()
+        skills = character.getskills()
 
-    for key in (db.getchildhoods().get(childhood)):
+        for key in (db.getfamilies().get(family)):
 
-        skills[key] += db.getchildhoods().get(childhood).get(key)
+            skills[key] += db.getfamilies().get(family).get(key)
 
-    character.setskills(skills)
+        character.setskills(skills)
 
-    skills = character.getskills()
+        skills = character.getskills()
 
-    for key in (db.getjobs().get(job)):
+        for key in (db.getchildhoods().get(childhood)):
 
-        skills[key] += db.getjobs().get(job).get(key)
+            skills[key] += db.getchildhoods().get(childhood).get(key)
 
-    character.setskills(skills)
+        character.setskills(skills)
+
+        skills = character.getskills()
+
+        for key in (db.getjobs().get(job)):
+
+            skills[key] += db.getjobs().get(job).get(key)
+
+        character.setskills(skills)
 
     return character
 

@@ -43,7 +43,7 @@ class database:
             "Software Engineer":10,
             "Speech":100,
             "Dealer":10,
-            "Ultra Instinct":10
+            "Ultra Instinct":1
             }
 
         self.families = {
