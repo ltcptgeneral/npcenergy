@@ -1,0 +1,2 @@
+python npcenergy.py
+pause
