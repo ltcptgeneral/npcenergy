@@ -8,13 +8,6 @@ from character import character
 from enemy import enemy
 from item import item
 
-def loadgame():
-    with open("data/savdata", "r") as file:
-        return list(file)
-    
-def savegame(data):
-    pass
-
 def intro(data):
 
     os.system('cls')
