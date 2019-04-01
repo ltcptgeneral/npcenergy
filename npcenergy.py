@@ -1,5 +1,6 @@
 import os
 import time
+import csv
 
 from anytree import Node, RenderTree
 
@@ -7,6 +8,13 @@ from database import database
 from character import character
 from enemy import enemy
 from item import item
+
+def loaddata():
+
+    with open("data/savdata", newline = '') as csvfile:
+        file_array = list(csv.reader(csvfile))
+        csvfile.close()
+    return file_array
 
 def intro(data):
 
@@ -114,7 +122,7 @@ def intro(data):
 
     return gender, name, family, childhood, job
 
-def createcharacter(db, character, gender, name, family, childhood, job):
+def createcharacter(db, character, gender, name, family, childhood, job, base_stats, attributes):
 
     if family == "gods":
 
@@ -122,6 +130,20 @@ def createcharacter(db, character, gender, name, family, childhood, job):
         character.setname(name)
 
         character.setskills(db.getmaxskills())
+
+        character.setbasestats({
+            "hp":1000,
+            "attk": 1000,
+            "defence":1000,
+            "intellect":1000
+            })
+
+        character.setattributes({
+            "hp":8001,
+            "attk": 8001,
+            "defence":8001,
+            "intellect":8001
+            })
 
     else:
 
@@ -152,6 +174,18 @@ def createcharacter(db, character, gender, name, family, childhood, job):
 
         character.setskills(skills)
 
+        character.setbasestats(base_stats)
+
+        character.setattributes(attributes)
+
+    return character
+
+def charactercalcstats(character):
+
+    for key in character.getattributes().keys():
+
+        character.getadjustedstats()[key] = character.getattributes().get(key) + character.getbasestats().get(key)
+
     return character
 
 global gamedb
@@ -162,17 +196,48 @@ def main():
     gamedb = database()
     player = character()
 
-    data = loadgame()
+    data = loaddata()
 
     if len(data) == 0:
 
         gender, name, family, childhood, job = intro(data)
         os.system('cls')
-        player = createcharacter(gamedb, player, gender, name, family, childhood, job)
+        player = createcharacter(gamedb, player, gender, name, family, childhood, job, {
+            "hp":10,
+            "attk": 0,
+            "defence":0,
+            "intellect":0
+            }, {
+            "hp": 0,
+            "attk": 0,
+            "defence": 0,
+            "intellect": 0
+            })
+
+        player = charactercalcstats(player)
+        player.setexp(0)
 
     else:
 
-        pass
+        os.system('cls')
+
+        #player = createcharacter(gamedb, player, data[0][0], data[0][1], data[0][2], data[0][3], data[0][4], base_stats, attributes)
+
+        player = createcharacter(gamedb, player, data[0][0], data[0][1], data[0][2], data[0][3], data[0][4], {
+            "hp":data[1][0],
+            "attk": data[1][1],
+            "defence": data[1][2],
+            "intellect": data[1][3]
+            }, {
+            "hp": data[2][0],
+            "attk": data[2][1],
+            "defence": data[2][2],
+            "intellect": data[2][3]
+            })
+        
+        player.setexp(data[3][0])
+        
+    print(player.getadjustedstats(), player.getname(), player.getgender(), player.getexp(), player.getskills())
 
 if __name__ == "__main__":
     main()
