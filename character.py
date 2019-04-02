@@ -6,6 +6,9 @@ class character:
         self.gender = ""
         self.exp = 0
         self.money = 0
+        self.family = ""
+        self.childhood = ""
+        self.job = ""
         
         self.base_stats = {
             "hp":0,
@@ -115,6 +118,18 @@ class character:
 
         return self.magic_inventory
 
+    def getfamily(self):
+
+        return self.family
+
+    def getchildhood(self):
+
+        return self.childhood
+
+    def getjob(self):
+
+        return self.job
+        
     def setname(self, nname):
 
         self.name = nname
@@ -162,3 +177,15 @@ class character:
     def setmagicinventory(self, nmagic_inventory):
 
         self.magic_inventory = nmagic_inventory
+
+    def setfamily(self, nfamily):
+
+        self.family = nfamily
+
+    def setchildhood(self, nchildhood):
+
+        self.childhood = nchildhood
+
+    def setjob(self, njob):
+
+        self.job = njob

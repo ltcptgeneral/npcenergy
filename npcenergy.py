@@ -131,6 +131,10 @@ def createcharacter(db, character, gender, name, family, childhood, job, base_st
 
         character.setskills(db.getmaxskills())
 
+        character.setfamily(family)
+        character.setchildhood(childhood)
+        character.setjob(job)
+
         character.setbasestats({
             "hp":1000,
             "attk": 1000,
@@ -151,6 +155,10 @@ def createcharacter(db, character, gender, name, family, childhood, job, base_st
         character.setname(name)
 
         skills = character.getskills()
+
+        character.setfamily(family)
+        character.setchildhood(childhood)
+        character.setjob(job)
 
         for key in (db.getfamilies().get(family)):
 
@@ -222,22 +230,24 @@ def main():
         os.system('cls')
 
         #player = createcharacter(gamedb, player, data[0][0], data[0][1], data[0][2], data[0][3], data[0][4], base_stats, attributes)
-
-        player = createcharacter(gamedb, player, data[0][0], data[0][1], data[0][2], data[0][3], data[0][4], {
-            "hp":data[1][0],
-            "attk": data[1][1],
-            "defence": data[1][2],
-            "intellect": data[1][3]
+        #print(str(data[0][2]))
+        #print(gamedb.getfamilies().get(str(data[0][2])))
+        
+        player = createcharacter(gamedb, player, str(data[0][0]), str(data[0][1]), str(data[0][2]), str(data[0][3]), str(data[0][4]), {
+            "hp": str(data[1][0]),
+            "attk": str(data[1][1]),
+            "defence": str(data[1][2]),
+            "intellect": str(data[1][3])
             }, {
-            "hp": data[2][0],
-            "attk": data[2][1],
-            "defence": data[2][2],
-            "intellect": data[2][3]
+            "hp": str(data[2][0]),
+            "attk": str(data[2][1]),
+            "defence": str(data[2][2]),
+            "intellect": str(data[2][3])
             })
         
         player.setexp(data[3][0])
         
-    print(player.getadjustedstats(), player.getname(), player.getgender(), player.getexp(), player.getskills())
+    #print(player.getadjustedstats(), player.getname(), player.getgender(), player.getexp(), player.getskills())
 
 if __name__ == "__main__":
     main()
