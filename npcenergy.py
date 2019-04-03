@@ -1,4 +1,4 @@
-import os
+from os import system, name
 import time
 import csv
 
@@ -16,24 +16,35 @@ def loaddata():
         csvfile.close()
     return file_array
 
+# define our clear function 
+def clear(): 
+  
+    # for windows 
+    if name == 'nt': 
+        _ = system('cls') 
+  
+    # for mac and linux(here, os.name is 'posix') 
+    else: 
+        _ = system('clear')
+
 def intro(data):
 
-    os.system('cls')
+    clear()
     
     print("All decent RPGs begin with the one important question: who the fuck are you? Its time for you to decide.")
     name = input("Press Enter to continue")
-    os.system('cls')
+    clear()
     
     print("First what's your gender? Notice how PC we are by giving you a chance to create any gender you want.")
     gender = input("Gender: ")
-    os.system('cls')
+    clear()
     
     print("Every protagonist has a name, what's your's? ") 
     name = input("Name: ")
-    os.system('cls')
+    clear()
     
     print("Now that I have no more than a basic understanding of yourself, we immedietly procede to everyone's favorite thing: exposition!")
-    os.system('cls')
+    clear()
     
     print("In these fable times, dangers are scarce and Heroes even scarcer. However what plagues the nations are troubles of monotony. You were born in this time, and in the meager years of childhood you have yet to escape the endless tasks given by society. The aware individuals realize that every problem has some intrinsic set of reasons. So you, being an aware individual, realize that your childhood problems began at birth. Specifically because your were born into a family of...")
     
@@ -44,7 +55,7 @@ def intro(data):
             break
         else:
             print("You were never properly tought how to count apparently, as you answer was not from 1-6.")
-    #os.system('cls')
+    #clear()
     
     print({
         "1":"As the child of declining nobility, you've never real power has never been in your grasp. However you've always been expected to behave as if you were a ruler.",
@@ -57,7 +68,7 @@ def intro(data):
         }.get(family))
     
     input("Press Enter to continue")
-    os.system('cls')
+    clear()
 
     print("Of course many problems in life are not due to uncontrollable factors like the family you were born into, so naturally your psychologist would ask you to describe your childhood.")
     
@@ -72,7 +83,7 @@ def intro(data):
             break
         else:
             print("You were never properly tought how to count apparently, as you answer was not from 1-5.")
-    #os.system('cls')
+    #clear()
     
     print({
         "1":"Your first lessons as a page for the local lord was those of inequality, as you waited on those more fortunate than yourself. However in return you recieved a small stipend and a decent education.",
@@ -83,7 +94,7 @@ def intro(data):
         }.get(childhood))
 
     input("Press Enter to continue")
-    os.system('cls')
+    clear()
 
     print("The monotony of every day life since childhood has left you bored, and it was on this day that you decided to becom an adventurer, against the wishes of your parents. However, having never stepped out of your comfort zone before, you have no clue what it means to be an adventurer. Perhaps it would be a good idea to start by picking what kind of adventurer you wish to be. As there are many types of fish in the sea, there are many types of adventuring to me done. You decide to be a...")
 
@@ -94,7 +105,7 @@ def intro(data):
             break
         else:
             print("You were never properly tought how to count apparently, as you answer was not from 1-8.")
-    #os.system('cls')
+    #clear()
 
     print({
         "1":"You decide that a life of combat is right for you.",
@@ -109,13 +120,13 @@ def intro(data):
 
     input("Press Enter to continue")
 
-    os.system('cls')
+    clear()
 
     print("No doubt that answering those questions has alread exceded the maximum number of interactions allwed per day, with penalty of mental and social shutdown. So from now on there will be no social interactions required. You only need to asnwer [...] when prompted.")
 
     input("To practice, when you see this: [...], you only need to press Enter")
 
-    os.system('cls')
+    clear()
 
     print("With what little you had on you back and in your pockets, you set out to find meaning in life.")
     input("Press Enter to begin your journey")
@@ -209,7 +220,7 @@ def main():
     if len(data) == 0:
 
         gender, name, family, childhood, job = intro(data)
-        os.system('cls')
+        clear()
         player = createcharacter(gamedb, player, gender, name, family, childhood, job, {
             "hp":10,
             "attk": 0,
@@ -227,7 +238,7 @@ def main():
 
     else:
 
-        os.system('cls')
+        clear()
 
         #player = createcharacter(gamedb, player, data[0][0], data[0][1], data[0][2], data[0][3], data[0][4], base_stats, attributes)
         #print(str(data[0][2]))
